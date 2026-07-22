@@ -2,6 +2,95 @@
 <html>
 <head>
 <title>Login - Finance Dashboard</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(-45deg,#2563eb,#9333ea,#06b6d4,#22c55e);
+    background-size:400% 400%;
+    animation:bg 10s ease infinite;
+}
+
+@keyframes bg{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.card{
+    width:380px;
+    padding:35px;
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(15px);
+    border-radius:25px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.3);
+    text-align:center;
+}
+
+.logo{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+h1{
+    color:white;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus{
+    box-shadow:0 0 15px #38bdf8;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    background:#22c55e;
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#16a34a;
+    transform:scale(1.05);
+}
+
+a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -10,24 +99,24 @@
 
 <div class="logo">🔐</div>
 
-<h1>Login</h1>
+<h1>Finance Login</h1>
 
 <form method="POST">
 
-<input
-type="text"
-name="username"
-placeholder="Username"
+<input 
+type="text" 
+name="username" 
+placeholder="Enter Username"
 required>
 
-<input
-type="password"
-name="password"
-placeholder="Password"
+<input 
+type="password" 
+name="password" 
+placeholder="Enter Password"
 required>
 
 <button type="submit">
-Login
+🚀 Login
 </button>
 
 </form>
@@ -35,10 +124,11 @@ Login
 <br>
 
 <a href="/signup">
-✨ Create Account
+✨ Create New Account
 </a>
 
 </div>
 
 </body>
 </html>
+
