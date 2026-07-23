@@ -549,6 +549,45 @@ def dynamic_import():
 @app.route("/data_manager")
 def data_manager():
     return render_template("data_manager.html")
+@app.route("/profile")
+def profile():
+
+    if "user" not in session:
+        return redirect("/login")
+
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+    SELECT username 
+    FROM users 
+    WHERE username=?
+    """,(session["user"],))
+
+    user = cur.fetchone()
+
+    cur.execute("""
+    SELECT 
+    SUM(CASE WHEN type='Income' THEN amount ELSE 0 END),
+    SUM(CASE WHEN type='Expense' THEN amount ELSE 0 END)
+    FROM transactions
+    """)
+
+    data = cur.fetchone()
+
+    conn.close()
+
+    income = data[0] or 0
+    expense = data[1] or 0
+    balance = income - expense
+
+    return render_template(
+        "profile.html",
+        username=user[0],
+        income=income,
+        expense=expense,
+        balance=balance
+    )
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

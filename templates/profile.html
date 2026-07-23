@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Profile</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="profile-card">
+
+<h1>👤 My Profile</h1>
+
+<h2>{{ username }}</h2>
+
+<hr>
+
+<p>💰 Total Income</p>
+<b>₹{{ income }}</b>
+
+<p>💸 Total Expense</p>
+<b>₹{{ expense }}</b>
+
+<p>💵 Balance</p>
+<b>₹{{ balance }}</b>
+
+<br>
+
+<a href="/">
+<button>🏠 Dashboard</button>
+</a>
+
+<a href="/logout">
+<button>🚪 Logout</button>
+</a>
+
+</div>
+
+</body>
+</html>
