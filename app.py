@@ -312,22 +312,36 @@ def import_excel():
 
     # Skip the header row
     # Skip the header row
+    # Read Excel headers
+headers = [cell.value for cell in ws[1]]
+
+# Existing columns in SQLite
+cur.execute("PRAGMA table_info(transactions)")
+existing = [c[1] for c in cur.fetchall()]
+
+# Add new columns if needed
+for col in headers:
+    if col.lower() != "id" and col not in existing:
+        cur.execute(f'ALTER TABLE transactions ADD COLUMN "{col}" TEXT')
+
+conn.commit()
+
+# Insert all rows dynamically
     for row in ws.iter_rows(min_row=2, values_only=True):
-        date = row[1]
-        category = row[2]
-        ttype = row[3]
-        amount = row[4]
-        description = row[5]
-        print(row)
-        print("Type:", ttype)
-        cur.execute("""
-            INSERT INTO transactions
-            (date, category, type, amount, description)
-            VALUES (?, ?, ?, ?, ?)
-    """, (date, category, ttype, amount, description))
+
+        values = list(row)
+
+        columns = ",".join(headers)
+        placeholders = ",".join(["?"] * len(values))
+
+        cur.execute(
+            f"INSERT INTO transactions ({columns}) VALUES ({placeholders})",
+            values
+      )
 
     conn.commit()
     conn.close()
+
 
     return redirect("/")
 if __name__ == "__main__":

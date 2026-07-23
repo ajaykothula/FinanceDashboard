@@ -145,13 +145,9 @@ Clear
 <table border="1">
 
 <tr>
-<th>ID</th>
-<th>Date</th>
-<th>Category</th>
-<th>Type</th>
-<th>Amount</th>
-<th>Description</th>
-<th>Action</th>
+{% for column in columns %}
+    <th>{{ column }}</th>
+{% endfor %}
 </tr>
 
 
@@ -159,9 +155,11 @@ Clear
 
 <tr>
 
-<td>{{t[0]}}</td>
-<td>{{t[1]}}</td>
-<td>{{t[2]}}</td>
+<tr>
+{% for value in row %}
+    <td>{{ value }}</td>
+{% endfor %}
+</tr>
 <td>{{t[3]}}</td>
 <td>{{t[4]}}</td>
 <td>{{t[5]}}</td>
