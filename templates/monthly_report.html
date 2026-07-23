@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monthly Report</title>
+</head>
+<body>
+
+<h1>📊 Monthly Financial Report</h1>
+
+<table border="1" cellpadding="10">
+
+<tr>
+    <th>Month</th>
+    <th>Income</th>
+    <th>Expense</th>
+    <th>Balance</th>
+    <th>Transactions</th>
+</tr>
+
+{% for r in reports %}
+<tr>
+    <td>{{ r[0] }}</td>
+    <td>₹{{ r[1] }}</td>
+    <td>₹{{ r[2] }}</td>
+    <td>₹{{ r[1] - r[2] }}</td>
+    <td>{{ r[3] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/">
+    <button>🏠 Back to Dashboard</button>
+</a>
+
+</body>
+</html>

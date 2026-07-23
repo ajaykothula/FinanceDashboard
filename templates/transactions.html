@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>    <title>All Transactions</title>
+</head>
+
+<body>
+<h2>Transactions</h2>
+
+<table border="1">
+
+<tr>
+    <th>Date</th>
+    <th>Category</th>
+    <th>Type</th>
+    <th>Amount</th>
+    <th>Description</th>
+    <th>Action</th>
+</tr>
+
+{% for t in transactions %}
+<tr>
+
+    <td>{{ t[1] }}</td>
+    <td>{{ t[2] }}</td>
+    <td>{{ t[3] }}</td>
+    <td>₹{{ t[4] }}</td>
+    <td>{{ t[5] }}</td>
+
+    <td>
+        <a href="/edit/{{ t[0] }}">Edit</a>
+        <a href="/delete/{{ t[0] }}">Delete</a>
+    </td>
+
+</tr>
+{% endfor %}
+
+</table>
