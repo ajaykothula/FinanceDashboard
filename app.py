@@ -399,6 +399,7 @@ def reset_budget():
     conn.close()
 
     return redirect("/")
+
 @app.route("/import", methods=["POST"])
 def import_excel():
     file = request.files["file"]
@@ -406,26 +407,35 @@ def import_excel():
     wb = load_workbook(file)
     ws = wb.active
 
+    # Read the first row (headers)
+    headers = [str(c.value).strip().lower() if c.value else "" for c in ws[1]]
+
+    # Create a mapping of header name -> column index
+    cols = {name: i for i, name in enumerate(headers)}
+
+    required = ["date", "category", "type", "amount", "description"]
+
+    # Check required columns exist
+    for col in required:
+        if col not in cols:
+            return f"❌ Missing required column: {col}"
+
     conn = get_conn()
     cur = conn.cursor()
 
-    # Skip the header row
     for row in ws.iter_rows(min_row=2, values_only=True):
-        
-        date = row[0]
-        category = row[1]
-        ttype = row[2]
-        amount = row[3]
-        description = row[4]
-        
-        print("ROW:", row)
-        print("TYPE VALUE =", repr(ttype))
+
+        date = row[cols["date"]]
+        category = row[cols["category"]]
+        ttype = row[cols["type"]]
+        amount = row[cols["amount"]]
+        description = row[cols["description"]]
 
         cur.execute("""
             INSERT INTO transactions
             (date, category, type, amount, description)
             VALUES (?, ?, ?, ?, ?)
-        """, (date, category,ttype,amount,description))
+        """, (date, category, ttype, amount, description))
 
     conn.commit()
     conn.close()
@@ -494,6 +504,18 @@ def monthly_report():
         "monthly_report.html",
         reports=reports
     )
+@app.route("/clear_transactions")
+def clear_transactions():
+    conn = sqlite3.connect(DB)
+    cur = conn.cursor()
+
+    cur.execute("DELETE FROM transactions")
+    cur.execute("DELETE FROM sqlite_sequence WHERE name='transactions'")
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/")
 @app.route("/dynamic_import", methods=["POST"])
 def dynamic_import():
 

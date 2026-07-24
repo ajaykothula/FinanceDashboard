@@ -18,6 +18,13 @@
 <a href="/export_pdf">
     <button>📄 Export PDF</button>
 </a>
+
+<a href="/clear_transactions"
+   onclick="return confirm('Delete all transactions? This cannot be undone.')">
+    <button class="delete-btn">
+        🗑️ Clear All Transactions
+    </button>
+</a>
 <form action="/import" method="POST" enctype="multipart/form-data">
     <input type="file" name="file" accept=".xlsx" required>
     <button type="submit">📤 Import Excel</button>
@@ -96,6 +103,7 @@
  <a href="/monthly_report">
     <button>📊 Monthly Report</button>
 </a>
+
 <h2>💰 Monthly Budget</h2>
 <br>
 
